@@ -75,7 +75,7 @@ func run() {
 
 	// Here we load an image from a file. The loadImage function is not within the library, it
 	// just loads and returns a image.NRGBA.
-	gopherImage, err := loadImage("celebrate.png")
+	gopherImage, err := loadImage("examples/demo/celebrate.png")
 	if err != nil {
 		panic(err)
 	}
