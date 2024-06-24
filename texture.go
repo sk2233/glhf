@@ -13,6 +13,7 @@ type Texture struct {
 	tex           binder
 	width, height int
 	smooth        bool
+	textureIdx    uint32
 }
 
 // NewTexture creates a new texture with the specified width and height with some initial
@@ -25,8 +26,9 @@ func NewTexture(width, height int, smooth bool, pixels []uint8) *Texture {
 				gl.BindTexture(gl.TEXTURE_2D, obj)
 			},
 		},
-		width:  width,
-		height: height,
+		width:      width,
+		height:     height,
+		textureIdx: gl.TEXTURE0, // 默认应用到纹理 0 上
 	}
 
 	gl.GenTextures(1, &tex.tex.obj)
@@ -78,6 +80,14 @@ func (t *Texture) Width() int {
 // Height returns the height of the Texture in pixels.
 func (t *Texture) Height() int {
 	return t.height
+}
+
+func (t *Texture) TextureIdx() uint32 {
+	return t.textureIdx
+}
+
+func (t *Texture) SetTextureIdx(textureIdx uint32) {
+	t.textureIdx = textureIdx // 允许修改纹理
 }
 
 // SetPixels sets the content of a sub-region of the Texture. Pixels must be an RGBA byte sequence.
@@ -139,6 +149,7 @@ func (t *Texture) Smooth() bool {
 
 // Begin binds the Texture. This is necessary before using the Texture.
 func (t *Texture) Begin() {
+	gl.ActiveTexture(t.textureIdx)
 	t.tex.bind()
 }
 
