@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-gl/glfw/v3.3/glfw"
 	"github.com/gopxl/mainthread/v2"
-	"github.com/sk2233/glhf/v2"
+	"github.com/sk2233/glhf"
 )
 
 func loadImage(path string) (*image.NRGBA, error) {
